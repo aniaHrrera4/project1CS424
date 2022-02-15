@@ -25,7 +25,7 @@ uicData$newDate <- as.Date(uicData$date, "%m/%d/%Y")
 uicData$MonthDate <- as.Date(uicData$date, "%m/%Y")
 
 # convert the temperatures from strings to numbers
-uicData$rides <- as.numeric(as.character(uicData$rides))
+uicData$Rides2 <- as.numeric(gsub(",", "", uicData$rides))
 
 station <- c(uicData$stationname)
 listNames <- c(colnames(uicData))
@@ -49,7 +49,7 @@ sidebar <- dashboardSidebar(disable = FALSE, collapsed = FALSE,
                      
                      selectInput("Year", "Select the year to visualize", years, selected = 2021),
                      selectInput("Station", "Select a Station", station, selected = "UIC-Halsted"),
-                     selectInput("Vizualize", "Select the column to visualize", listNames, selected = "rides"),
+                     selectInput("Vizualize", "Select the column to visualize", listNames, selected = "Rides2"),
                      selectInput("Option", "Select charts to see", options, selected = "each day for 2021")
                 
     )
@@ -151,7 +151,7 @@ server <- function(input, output) {
         allYears <- YearsReactive()
         ggplot(allYears, aes(x=newDate, y=allYears[,input$Vizualize]))+
             labs(x="Per Year", y = "# of rides") + geom_bar(stat="identity")+
-            scale_x_date(date_breaks = "1 year", date_labels =  "%Y", expand = c(0, 5))
+            scale_x_date(date_breaks = "1 year", date_labels =  "%Y", expand = c(0, 0))
     })
 }
 
