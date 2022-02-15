@@ -95,17 +95,19 @@ body<- dashboardBody(
         
        ),
         
-       tabItem(tabName = "About", p("Project 1 - Subway"),p("download the data file from the Chicago Data Portal and break the file into appropriate chunks that are less than 5 MB each
-                                                            use lubridate to convert the date information into a more usable form
-                                                            create an interactive visualization in R and Shiny on Shinyapps.io
-                                                            your dashboard should initially show a bar chart showing total entries at UIC-Halsted for each year (2001, 2002, ... 2021)
+       tabItem(tabName = "About", p("Project 1 - Subway"),p("Data file from the Chicago Data Portal
+                                                            An interactive visualization in R and Shiny on Shinyapps.io
+                                                            Dashboard initially show a bar chart showing total entries at UIC-Halsted for each year (2001, 2002, ... 2021)
                                                             allow the user to choose to see each of the following charts (either individually or all at the same time)
                                                             bar chart showing entries at UIC-Halsted each day for 2021 (jan 1, jan 2, ... dec 31)
                                                             bar chart showing total entries at UIC-Halsted for each month for 2021 (jan, feb, ... dec)
                                                             bar chart showing total entries at UIC-Halsted for each day of the week for 2021 (mon, tue, ... sun)
                                                             allow the user to use a menu to choose any of the years from 2001 - 2021 and have all of the UIC-Halsted charts update for the chosen year
                                                             allow the user to see the data for each of the charts as a table in the same order
-                                                            have an 'about page' in your app, perhaps as a separate tab in the shiny interface, with appropriate credits (where the data is from, who wrote the app, when, why, etc.)"))
+                                                            
+                                                            
+                                                            
+                                                            Written by Andrea Herrera"))
     
    )
        
