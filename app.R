@@ -9,7 +9,7 @@
 
 library(shiny)
 library(shinydashboard)
-library(ggplot2)sum
+library(ggplot2)
 library(lubridate)
 library(DT)
 library(jpeg)
@@ -17,6 +17,8 @@ library(grid)
 library(leaflet)
 library(scales)
 library(dplyr)
+
+
 
 ##import data for uic
 uicData <- read.csv("CTA_-_Ridership_-__L__Station_Entries_-_Daily_Totals_UIC-Halsted.csv", header=TRUE, stringsAsFactors=FALSE)
