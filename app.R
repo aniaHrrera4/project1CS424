@@ -49,28 +49,42 @@ station <- c(uicData$stationname[1],ohareData$stationname[1],chinatownData$stati
 
 #aggregates all the rides data by month and year
 uicData$year_month <- floor_date(uicData$newDate, "month")
-data_aggrUIC <- uicData %>%                         # Aggregate data
+uicData$yearss <- floor_date(uicData$newDate, "year")
+data_aggrUIC <- uicData %>%                         # Aggregate data by month
     group_by(year_month) %>% 
     dplyr::summarize(Rides2 = sum(Rides2)) %>% 
     as.data.frame()
+year_aggrUIC <- uicData %>%                         # Aggregate data by year
+    group_by(yearss) %>% 
+    dplyr::summarize(Rides2 = sum(Rides2)) %>% 
+    as.data.frame()
+
 
 ohareData$year_month <- floor_date(ohareData$newDate, "month")
+ohareData$yearss <- floor_date(ohareData$newDate, "year")
 data_aggrOhare <- ohareData %>%                         # Aggregate data
     group_by(year_month) %>% 
     dplyr::summarize(Rides2 = sum(Rides2)) %>% 
     as.data.frame()
+year_aggrOhare <- ohareData %>%                         # Aggregate data by year
+    group_by(yearss) %>% 
+    dplyr::summarize(Rides2 = sum(Rides2)) %>% 
+    as.data.frame()
 
 chinatownData$year_month <- floor_date(chinatownData$newDate, "month")
+chinatownData$yearss <- floor_date(chinatownData$newDate, "year")
 data_aggrChina <- chinatownData %>%                         # Aggregate data
     group_by(year_month) %>% 
     dplyr::summarize(Rides2 = sum(Rides2)) %>% 
     as.data.frame()
-
+year_aggrChinatownData <- chinatownData %>%                         # Aggregate data by year
+    group_by(yearss) %>% 
+    dplyr::summarize(Rides2 = sum(Rides2)) %>% 
+    as.data.frame()
 
 listNames <- c(colnames(uicData))
-years<-c(2000:2021)
+years<-c(2001:2021)
 months<-c(1:12)
-color <- "red"
 
 # Define UI for application that draws a histogram
 
@@ -84,8 +98,16 @@ sidebar <- dashboardSidebar(disable = FALSE, collapsed = FALSE,
                          menuItem("About", icon = icon("th"), tabName = "About")),
                      
                      
-                     selectInput("Year", "Select the year to visualize", years, selected = 2021),
-                     selectInput("Station", "Select a Station", station, selected = "UIC-Halsted"),
+                     selectInput("Station1", "Select #1 Station", station, selected = "UIC-Halsted"),
+                     selectInput("Year1", "Select the year to visualize", years, selected = 2021),
+                     selectInput("Station2", "Select #2 Station", station, selected = "O'Hare Airport"),
+                     selectInput("Year2", "Select the year to visualize", years, selected = 2021),
+                     selectInput("Station3", "Select #3 Station", station, selected = "Cermak-Chinatown"),
+                     selectInput("Year3", "Select the year to visualize", years, selected = 2021),
+                     
+                     
+                     
+                     
                      selectInput("Vizualize", "Select the column to visualize", listNames, selected = "Rides2")
     )
     #your dashboard should initially show a bar chart showing total entries at UIC-Halsted 
@@ -93,17 +115,12 @@ sidebar <- dashboardSidebar(disable = FALSE, collapsed = FALSE,
 body<- dashboardBody(
         tabItems(
            tabItem(tabName = "Dashboard",
+        column(4,
             fluidRow(
                 column(12,
                        fluidRow(
-                           #tabBox(
-                            #   title = "UIC",
-                               # The id lets us use input$tabset1 on the server to find the current tab
-                            #   id = "tabset1", height = "400px",
-                            #   tabPanel("total entries per year",plotOutput("Hist3", height = 200)),
-                            #   tabPanel("total entries per month", plotOutput("Hist2", height = 200))
-                          # )
-                           box(title = "Total Entries Per Year", solidHeader = TRUE, status = "primary", width = 12,
+
+                           box(title = "Station #1 Total Entries Per Year", solidHeader = TRUE, status = "primary", width = 12,
                               plotOutput("Hist3", height = 200)
                            )
                        )
@@ -112,7 +129,7 @@ body<- dashboardBody(
             fluidRow(
                 column(12,
                        fluidRow(
-                           box(title = "Total Entries Per Month", solidHeader = TRUE, status = "primary", width = 12,
+                           box(title = "Station #1 Total Entries Per Month", solidHeader = TRUE, status = "primary", width = 12,
                                plotOutput("Hist2", height = 200)
                            )
                        )
@@ -121,14 +138,79 @@ body<- dashboardBody(
             fluidRow(
                 column(12,
                        fluidRow(
-                           box(title = "Entries Per Ride Per Day", solidHeader = TRUE, status = "primary", width = 12,
+                           box(title = "Station #1 Entries Per Ride Per Day", solidHeader = TRUE, status = "primary", width = 12,
                                plotOutput("Hist1", height = 200)
                            )
                        )
                 )
             )
+        ),
+        
+    column(4,
+            fluidRow(
+                column(12,
+                       fluidRow(
+            
+                           box(title = "Station #2 Total Entries Per Year", solidHeader = TRUE, status = "primary", width = 12,
+                               plotOutput("Hist4", height = 200)
+                           )
+                       )
+                )
+            ),
+            fluidRow(
+                column(12,
+                       fluidRow(
+                           box(title = "Station #2 Total Entries Per Month", solidHeader = TRUE, status = "primary", width = 12,
+                               plotOutput("Hist5", height = 200)
+                           )
+                       )
+                )
+            ),
+            fluidRow(
+                column(12,
+                       fluidRow(
+                           box(title = "Station #2 Entries Per Ride Per Day", solidHeader = TRUE, status = "primary", width = 12,
+                               plotOutput("Hist6", height = 200)
+                           )
+                       )
+                )
+            )
+        ),
+        
+        
+    column(4,
+            fluidRow(
+                column(12,
+                       fluidRow(
+                           box(title = "Station #3 Total Entries Per Year", solidHeader = TRUE, status = "primary", width = 12,
+                               plotOutput("Hist7", height = 200)
+                           )
+                       )
+                )
+            ),
+            fluidRow(
+                column(12,
+                       fluidRow(
+                           box(title = "Station #3 Total Entries Per Month", solidHeader = TRUE, status = "primary", width = 12,
+                               plotOutput("Hist8", height = 200)
+                           )
+                       )
+                )
+            ),
+            fluidRow(
+                column(12,
+                       fluidRow(
+                           box(title = "Station #3 Entries Per Ride Per Day", solidHeader = TRUE, status = "primary", width = 12,
+                               plotOutput("Hist9", height = 200)
+                           )
+                       )
+                )
+            )
+        
+        
         
        ),
+           ),
         
        tabItem(tabName = "About", p("Project 1 - Subway"),p("Data file from the Chicago Data Portal
                                                             An interactive visualization in R and Shiny on Shinyapps.io
@@ -147,7 +229,7 @@ body<- dashboardBody(
    )
        
  ) 
- 
+
  ui <- dashboardPage(
      dashboardHeader(title = "Project 1 CTA DATA - Andrea Herrera "),
      sidebar,
@@ -161,79 +243,227 @@ server <- function(input, output) {
     
     # calculate the values one time and re-use them in multiple charts to speed things up
 
-    justOneYearReactive <- reactive(
-        if ( input$Station == "UIC-Halsted"){
-            {subset(uicData, year(uicData$newDate) == input$Year)}
-        }else if(input$Station=="Cermak-Chinatown"){
-            {subset(chinatownData, year(chinatownData$newDate) == input$Year)}
+    justOneYearReactive1 <- reactive(
+        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"  ){
+            {subset(uicData, year(uicData$newDate) == input$Year1)}
+        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+            {subset(chinatownData, year(chinatownData$newDate) == input$Year1)}
         }else{
-            {subset(ohareData, year(ohareData$newDate) == input$Year)}
+            {subset(ohareData, year(ohareData$newDate) == input$Year1)}
         }
     )
     
-    justOneMonthperYearReactive <- reactive(
-        if ( input$Station == "UIC-Halsted"){
-            {subset(data_aggrUIC, year(data_aggrUIC$year_month) == input$Year)}
-        }else if(input$Station=="Cermak-Chinatown"){
-            {subset(data_aggrChina, year(data_aggrChina$year_month) == input$Year)}
+    justOneMonthperYearReactive1 <- reactive(
+        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"){
+            {subset(data_aggrUIC, year(data_aggrUIC$year_month) == input$Year1)}
+        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+            {subset(data_aggrChina, year(data_aggrChina$year_month) == input$Year1)}
         }else{
-            {subset(data_aggrOhare, year(data_aggrOhare$year_month) == input$Year)}
+            {subset(data_aggrOhare, year(data_aggrOhare$year_month) == input$Year1)}
+        }
+    )
+    
+    justOneYearReactive2 <- reactive(
+        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"  ){
+            {subset(uicData, year(uicData$newDate) == input$Year2)}
+        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+            {subset(chinatownData, year(chinatownData$newDate) == input$Year2)}
+        }else{
+            {subset(ohareData, year(ohareData$newDate) == input$Year2)}
+        }
+    )
+    
+    justOneMonthperYearReactive2 <- reactive(
+        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"){
+            {subset(data_aggrUIC, year(data_aggrUIC$year_month) == input$Year2)}
+        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+            {subset(data_aggrChina, year(data_aggrChina$year_month) == input$Year2)}
+        }else{
+            {subset(data_aggrOhare, year(data_aggrOhare$year_month) == input$Year2)}
+        }
+    )
+    
+    
+    justOneYearReactive3 <- reactive(
+        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"  ){
+            {subset(uicData, year(uicData$newDate) == input$Year3)}
+        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+            {subset(chinatownData, year(chinatownData$newDate) == input$Year3)}
+        }else{
+            {subset(ohareData, year(ohareData$newDate) == input$Year3)}
+        }
+    )
+    
+    justOneMonthperYearReactive3 <- reactive(
+        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"){
+            {subset(data_aggrUIC, year(data_aggrUIC$year_month) == input$Year3)}
+        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+            {subset(data_aggrChina, year(data_aggrChina$year_month) == input$Year3)}
+        }else{
+            {subset(data_aggrOhare, year(data_aggrOhare$year_month) == input$Year3)}
         }
     )
     
     YearsReactive <- reactive(
-        if ( input$Station == "UIC-Halsted"){
-            {subset(data_aggrUIC, year(data_aggrUIC$year_month)  == years)}
-        }else if(input$Station=="Cermak-Chinatown"){
-            {subset(data_aggrChina, year(data_aggrChina$year_month)== years)}
+        if ( input$Station1 == "UIC-Halsted"){
+            {subset(year_aggrUIC, year(year_aggrUIC$yearss)  == years)}
+        }else if(input$Station1=="Cermak-Chinatown"){
+            {subset(year_aggrChinatownData, year(year_aggrChinatownData$yearss)== years)}
+        }else if(input$Station1=="O'Hare Airport"){
+            {subset(year_aggrOhare, year(year_aggrOhare$yearss) == years)}
+        }else if ( input$Station2 == "UIC-Halsted"){
+            {subset(year_aggrUIC, year(year_aggrUIC$yearss)  == years)}
+        }else if(input$Station2=="Cermak-Chinatown"){
+            {subset(year_aggrChinatownData, year(year_aggrChinatownData$yearss)== years)}
+        }else if(input$Station2=="O'Hare Airport"){
+            {subset(year_aggrOhare, year(year_aggrOhare$yearss) == years)}
+        }else if ( input$Station3 == "UIC-Halsted"){
+            {subset(year_aggrUIC, year(year_aggrUIC$yearss)  == years)}
+        }else if(input$Station3=="Cermak-Chinatown"){
+            {subset(year_aggrChinatownData, year(year_aggrChinatownData$yearss)== years)}
         }else{
-            {subset(data_aggrOhare, year(data_aggrOhare$year_month) == years)}
+            {subset(year_aggrOhare, year(year_aggrOhare$yearss) == years)}
         }
     )
 
     output$Hist1 <- renderPlot({
-        if ( input$Station == "UIC-Halsted"){
+        if ( input$Station1 == "UIC-Halsted"){
             color<- "darkblue"
-        }else if(input$Station=="Cermak-Chinatown"){
+        }else if(input$Station1=="Cermak-Chinatown"){
             color<- "#782208"
         }else{
             color<- "#1c4a36"
         }
-        justOneYear <- justOneYearReactive()
+        justOneYear <- justOneYearReactive1()
         ggplot(justOneYear, aes(x=newDate, y=justOneYear[,input$Vizualize]))+
-            labs(x=paste("Day in", input$Year), y = "# of rides") + geom_bar(stat="identity", fill = color) +
-            scale_x_date(date_breaks = "1 week",date_minor_breaks = "1 week", date_labels =  "%m/%d", expand = c(0, 0))
+            labs(x=paste("Day in", input$Year1), y = "# of rides") + geom_bar(stat="identity", fill = color) +
+            scale_x_date(date_breaks = "1 month", date_labels =  "%m/%d", expand = c(0, 0))
     })
     
     output$Hist2 <- renderPlot({
-        if ( input$Station == "UIC-Halsted"){
+        if ( input$Station1 == "UIC-Halsted"){
             color<- "darkblue"
-        }else if(input$Station=="Cermak-Chinatown"){
+        }else if(input$Station1=="Cermak-Chinatown"){
             color<- "#782208"
         }else{
             color<- "#1c4a36"
         }
 
-        monthly<-justOneMonthperYearReactive()
+        monthly<-justOneMonthperYearReactive1()
         ggplot(monthly, aes(x=year_month, y=monthly[,input$Vizualize]))+
-            labs(x=paste("Month in", input$Year), y = "# of rides") + geom_bar(stat="identity",fill = color) +
+            labs(x=paste("Month in", input$Year1), y = "# of rides") + geom_bar(stat="identity",fill = color) +
             scale_x_date(date_breaks = "1 month",date_labels = "%B", expand = c(0, 0))
     })
     
     output$Hist3 <- renderPlot({
-        if ( input$Station == "UIC-Halsted"){
+        if ( input$Station1 == "UIC-Halsted"){
             color<- "darkblue"
-        }else if(input$Station=="Cermak-Chinatown"){
+        }else if(input$Station1=="Cermak-Chinatown"){
             color<- "#782208"
         }else{
             color<- "#1c4a36"
         }
         allYears <- YearsReactive()
-        ggplot(allYears, aes(x=year_month, y=allYears[,input$Vizualize]))+
-            labs(x="Per Year", y = "# of rides") + geom_bar(stat="identity",fill = color)+
-            scale_x_date(date_breaks = "1 year", date_labels =  "%Y", expand = c(0, 0))
+        ggplot(allYears, aes(x=yearss, y=allYears[,input$Vizualize]))+
+            labs(x="Per Year in 2000's", y = "# of rides") + geom_bar(stat="identity",fill = color)+
+            scale_x_date(date_breaks = "1 year", date_labels =  "%y", expand = c(0, 0))
        # }
     })
+    
+    
+    output$Hist6 <- renderPlot({
+        if ( input$Station2 == "UIC-Halsted"){
+            color<- "darkblue"
+        }else if(input$Station2=="Cermak-Chinatown"){
+            color<- "#782208"
+        }else{
+            color<- "#1c4a36"
+        }
+        justOneYear <- justOneYearReactive2()
+        ggplot(justOneYear, aes(x=newDate, y=justOneYear[,input$Vizualize]))+
+            labs(x=paste("Day in", input$Year2), y = "# of rides") + geom_bar(stat="identity", fill = color) +
+            scale_x_date(date_breaks = "1 month", date_labels =  "%m/%d", expand = c(0, 0))
+    })
+    
+    output$Hist5 <- renderPlot({
+        if ( input$Station2 == "UIC-Halsted"){
+            color<- "darkblue"
+        }else if(input$Station2=="Cermak-Chinatown"){
+            color<- "#782208"
+        }else{
+            color<- "#1c4a36"
+        }
+        
+        monthly<-justOneMonthperYearReactive2()
+        ggplot(monthly, aes(x=year_month, y=monthly[,input$Vizualize]))+
+            labs(x=paste("Month in", input$Year2), y = "# of rides") + geom_bar(stat="identity",fill = color) +
+            scale_x_date(date_breaks = "1 month",date_labels = "%B", expand = c(0, 0))
+    })
+    
+    output$Hist4 <- renderPlot({
+        if ( input$Station2 == "UIC-Halsted"){
+            color<- "darkblue"
+        }else if(input$Station2=="Cermak-Chinatown"){
+            color<- "#782208"
+        }else{
+            color<- "#1c4a36"
+        }
+        allYears <- YearsReactive()
+        ggplot(allYears, aes(x=yearss, y=allYears[,input$Vizualize]))+
+            labs(x="Per Year in 2000's", y = "# of rides") + geom_bar(stat="identity",fill = color)+
+            scale_x_date(date_breaks = "1 year", date_labels =  "%y", expand = c(0, 0))
+        # }
+    })
+    
+    
+    
+    
+    output$Hist9 <- renderPlot({
+        if ( input$Station3 == "UIC-Halsted"){
+            color<- "darkblue"
+        }else if(input$Station3=="Cermak-Chinatown"){
+            color<- "#782208"
+        }else{
+            color<- "#1c4a36"
+        }
+        justOneYear <- justOneYearReactive3()
+        ggplot(justOneYear, aes(x=newDate, y=justOneYear[,input$Vizualize]))+
+            labs(x=paste("Day in", input$Year3), y = "# of rides") + geom_bar(stat="identity", fill = color) +
+            scale_x_date(date_breaks = "1 month", date_labels =  "%m/%d", expand = c(0, 0))
+    })
+    
+    output$Hist8 <- renderPlot({
+        if ( input$Station3 == "UIC-Halsted"){
+            color<- "darkblue"
+        }else if(input$Station3=="Cermak-Chinatown"){
+            color<- "#782208"
+        }else{
+            color<- "#1c4a36"
+        }
+        
+        monthly<-justOneMonthperYearReactive3()
+        ggplot(monthly, aes(x=year_month, y=monthly[,input$Vizualize]))+
+            labs(x=paste("Month in", input$Year3), y = "# of rides") + geom_bar(stat="identity",fill = color) +
+            scale_x_date(date_breaks = "1 month",date_labels = "%B", expand = c(0, 0))
+    })
+    
+    output$Hist7 <- renderPlot({
+        if ( input$Station3 == "UIC-Halsted"){
+            color<- "darkblue"
+        }else if(input$Station3=="Cermak-Chinatown"){
+            color<- "#782208"
+        }else{
+            color<- "#1c4a36"
+        }
+        allYears <- YearsReactive()
+        ggplot(allYears, aes(x=yearss, y=allYears[,input$Vizualize]))+
+            labs(x="Per Year in 2000's", y = "# of rides") + geom_bar(stat="identity",fill = color)+
+            scale_x_date(date_breaks = "1 year", date_labels =  "%y", expand = c(0, 0))
+        # }
+    })
+    
+    
+    
 }
 
 # Run the application 
