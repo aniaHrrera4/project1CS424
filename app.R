@@ -82,7 +82,7 @@ year_aggrChinatownData <- chinatownData %>%                         # Aggregate 
     dplyr::summarize(Rides2 = sum(Rides2)) %>% 
     as.data.frame()
 
-listNames <- c(colnames(uicData))
+listNames <- "Rides2"
 years<-c(2001:2021)
 months<-c(1:12)
 
@@ -96,19 +96,16 @@ sidebar <- dashboardSidebar(disable = FALSE, collapsed = FALSE,
                          menuItem("", tabName = "cheapBlankSpace", icon = NULL),
                          menuItem("Dashboard", tabName = "Dashboard", icon = icon("dashboard")),
                          menuItem("About", icon = icon("th"), tabName = "About")),
-                     
+                     selectInput("Vizualize", "Select the column to visualize", listNames, selected = "Rides2",  selectize = FALSE),
+                
                      
                      selectInput("Station1", "Select #1 Station", station, selected = "UIC-Halsted"),
                      selectInput("Year1", "Select the year to visualize", years, selected = 2021),
                      selectInput("Station2", "Select #2 Station", station, selected = "O'Hare Airport"),
                      selectInput("Year2", "Select the year to visualize", years, selected = 2021),
                      selectInput("Station3", "Select #3 Station", station, selected = "Cermak-Chinatown"),
-                     selectInput("Year3", "Select the year to visualize", years, selected = 2021),
+                     selectInput("Year3", "Select the year to visualize", years, selected = 2021)
                      
-                     
-                     
-                     
-                     selectInput("Vizualize", "Select the column to visualize", listNames, selected = "Rides2")
     )
     #your dashboard should initially show a bar chart showing total entries at UIC-Halsted 
     #for each year (2001, 2002, ... 2021)
@@ -212,19 +209,22 @@ body<- dashboardBody(
        ),
            ),
         
-       tabItem(tabName = "About", p("Project 1 - Subway"),p("Data file from the Chicago Data Portal
-                                                            An interactive visualization in R and Shiny on Shinyapps.io
-                                                            Dashboard initially show a bar chart showing total entries at UIC-Halsted for each year (2001, 2002, ... 2021)
-                                                            allow the user to choose to see each of the following charts (either individually or all at the same time)
-                                                            bar chart showing entries at UIC-Halsted each day for 2021 (jan 1, jan 2, ... dec 31)
-                                                            bar chart showing total entries at UIC-Halsted for each month for 2021 (jan, feb, ... dec)
-                                                            bar chart showing total entries at UIC-Halsted for each day of the week for 2021 (mon, tue, ... sun)
-                                                            allow the user to use a menu to choose any of the years from 2001 - 2021 and have all of the UIC-Halsted charts update for the chosen year
-                                                            allow the user to see the data for each of the charts as a table in the same order
-                                                            
-                                                            
-                                                            
-                                                            Written by Andrea Herrera"))
+       tabItem(tabName = "About", p("Project 1 - Subway"),p("Data file from the Chicago Data Portal"),
+                                                          p("An interactive visualization in R and Shiny on Shinyapps.io"),
+                                                          p("Dashboard initially shows 3 columns and 3 rows each column represent a station with the menu items for each on the 
+                                                            sidebar. each column has options to change the station and change the year for that specific station."),
+                                                          p("
+                                                            colomn 1 is connected station 1 and year 1 choices. 
+                                                            colomn 2 is connected station 2 and year 2 choices. 
+                                                            colomn 3 is connected station 3 and year 3 choicesn. "),
+                                                          p("
+                                                            The First row shows a bar chart showing total entries at all the stations for each year (2001, 2002, ... 2021).
+                                                            The Second row shows a bar chart showing total entries for each month of each year1 (jan, feb, ... dec) at all the stations. 
+                                                            The Third row shows a bar chart showing entries for each day of each year (jan 1, jan 2, ... dec 31) at all the stations."),
+                                        
+                                                           p(" The User is allowed to use the side bar and change the menu items for each station and year that corresponds\n"),
+                                                        
+                                                            p("Written by Andrea Herrera"))
     
    )
        
