@@ -1,0 +1,116 @@
+
+body{
+    background-color: rgb(132, 187, 189);
+    color: white;
+    font-family: Helvetica;
+}
+
+/* navigation bar styling */
+.navBar{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+ul.nav{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction:row;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+li.nav{
+    background-color: grey;
+    display: block;
+    margin: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+  
+li a:hover {
+    background-color: #111;
+}
+
+
+/* first container styling  */
+.container {
+    display: grid;
+    /* grid-template-columns: 1fr 3fr 1fr; */
+    max-width: 1200px;
+    margin: 1em auto;
+    display: grid;
+    grid-gap: 1rem;
+}
+.item{
+    display: inline-block;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: rgba(255, 255, 255, 0.8);
+    color:black;
+    padding-inline: 1em;
+}
+
+
+/* second container styling */
+.gridContainer{
+    display: grid;
+    /*grid-template-columns: repeat(2, 1fr); */
+    max-width: 1200px;
+    margin: 1em auto;
+    display: grid;
+    grid-gap: 1rem;
+}
+.grid-item {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: rgba(255, 255, 255, 0.8);
+    color:black;
+    padding: 1em,1em,1em,1em;
+    margin: 1em,1em,1em,1em;
+
+}
+
+
+/* responsive styling */
+@media (min-width: 600px) {
+
+    .full-width-img1 {
+    margin:auto;
+    margin-left: 1em;
+    width: 75%;
+    }
+    .full-width-img2 {
+    margin:auto;
+    width: 20%;
+    }
+    
+}    
+@media screen and (min-width: 600px) {
+    .gridContainer{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .container {
+        grid-template-columns: repeat(1, 1fr);
+    } 
+
+  }
+  
+@media screen and (min-width: 1000px) {
+    .gridContainer{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .container {
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+  }
