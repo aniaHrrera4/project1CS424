@@ -4,6 +4,9 @@ body{
     color: white;
     font-family: Helvetica;
 }
+p{
+    margin: 1em;
+}
 
 /* navigation bar styling */
 .navBar{
@@ -88,11 +91,11 @@ li a:hover {
     .full-width-img1 {
     margin:auto;
     margin-left: 1em;
-    width: 75%;
+    width: 50%;
     }
     .full-width-img2 {
     margin:auto;
-    width: 100%;
+    width: 95%;
     }
     
 }    
@@ -108,9 +111,9 @@ li a:hover {
   
 @media screen and (min-width: 1000px) {
     .gridContainer{
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
     .container {
-        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-columns: repeat(1, 1fr);
     }
   }

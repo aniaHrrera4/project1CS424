@@ -9,7 +9,7 @@
 
 library(shiny)
 library(shinydashboard)
-library(ggplot2)
+library(ggplot2)sum
 library(lubridate)
 library(DT)
 library(jpeg)
@@ -17,8 +17,6 @@ library(grid)
 library(leaflet)
 library(scales)
 library(dplyr)
-
-
 
 ##import data for uic
 uicData <- read.csv("CTA_-_Ridership_-__L__Station_Entries_-_Daily_Totals_UIC-Halsted.csv", header=TRUE, stringsAsFactors=FALSE)
@@ -44,7 +42,7 @@ uicData$Rides2 <- as.numeric(gsub(",", "", uicData$rides))
 ohareData$Rides2 <- as.numeric(gsub(",", "", ohareData$rides))
 chinatownData$Rides2 <- as.numeric(gsub(",", "", chinatownData$rides))
 
-
+#get list of stations
 station <- c(uicData$stationname[1],ohareData$stationname[1],chinatownData$stationname[1])
 
 #aggregates all the rides data by month and year
@@ -62,7 +60,7 @@ year_aggrUIC <- uicData %>%                         # Aggregate data by year
 
 ohareData$year_month <- floor_date(ohareData$newDate, "month")
 ohareData$yearss <- floor_date(ohareData$newDate, "year")
-data_aggrOhare <- ohareData %>%                         # Aggregate data
+data_aggrOhare <- ohareData %>%                         # Aggregate data by month
     group_by(year_month) %>% 
     dplyr::summarize(Rides2 = sum(Rides2)) %>% 
     as.data.frame()
@@ -73,11 +71,11 @@ year_aggrOhare <- ohareData %>%                         # Aggregate data by year
 
 chinatownData$year_month <- floor_date(chinatownData$newDate, "month")
 chinatownData$yearss <- floor_date(chinatownData$newDate, "year")
-data_aggrChina <- chinatownData %>%                         # Aggregate data
+data_aggrChina <- chinatownData %>%                         # Aggregate data by month
     group_by(year_month) %>% 
     dplyr::summarize(Rides2 = sum(Rides2)) %>% 
     as.data.frame()
-year_aggrChinatownData <- chinatownData %>%                         # Aggregate data by year
+year_aggrChinatownData <- chinatownData %>%                 # Aggregate data by year
     group_by(yearss) %>% 
     dplyr::summarize(Rides2 = sum(Rides2)) %>% 
     as.data.frame()
@@ -88,7 +86,8 @@ months<-c(1:12)
 
 # Define UI for application that draws a histogram
 
-
+#make side bar with all menu items and input selections
+#two tabs for dash board and about me 
 sidebar <- dashboardSidebar(disable = FALSE, collapsed = FALSE,
                      
                      sidebarMenu(
@@ -107,8 +106,7 @@ sidebar <- dashboardSidebar(disable = FALSE, collapsed = FALSE,
                      selectInput("Year3", "Select the year to visualize", years, selected = 2021)
                      
     )
-    #your dashboard should initially show a bar chart showing total entries at UIC-Halsted 
-    #for each year (2001, 2002, ... 2021)
+#the body of the dashboard divided into 3 Columns with 3 rows. ( total bar charts)
 body<- dashboardBody(
         tabItems(
            tabItem(tabName = "Dashboard",
@@ -229,7 +227,7 @@ body<- dashboardBody(
    )
        
  ) 
-
+#putting everything together
  ui <- dashboardPage(
      dashboardHeader(title = "Project 1 CTA DATA - Andrea Herrera "),
      sidebar,
@@ -241,8 +239,9 @@ server <- function(input, output) {
     # increase the default font size
     theme_set(theme_grey(base_size = 14)) 
     
-    # calculate the values one time and re-use them in multiple charts to speed things up
-
+    # calculate the values for each station and year date 
+    
+    # for station1 year 1
     justOneYearReactive1 <- reactive(
         if ( input$Station1 == "UIC-Halsted"){
             {subset(uicData, year(uicData$newDate) == input$Year1)}
@@ -263,6 +262,7 @@ server <- function(input, output) {
         }
     )
     
+    # for station2 year 2
     justOneYearReactive2 <- reactive(
         if ( input$Station2 == "UIC-Halsted"){
             {subset(uicData, year(uicData$newDate) == input$Year2)}
@@ -283,7 +283,7 @@ server <- function(input, output) {
         }
     )
     
-    
+    # for station3 year 3
     justOneYearReactive3 <- reactive(
         
         if ( input$Station3 == "UIC-Halsted"){
@@ -305,6 +305,7 @@ server <- function(input, output) {
         }
     )
     
+    #for all the 3 different stations
     YearsReactive1 <- reactive(
         if ( input$Station1 == "UIC-Halsted"){
             {subset(year_aggrUIC, year(year_aggrUIC$yearss)  == years)}
@@ -333,6 +334,7 @@ server <- function(input, output) {
         }
     )
 
+    # 9 total bar charts
     output$Hist1 <- renderPlot({
         if ( input$Station1 == "UIC-Halsted"){
             color<- "darkblue"
@@ -347,7 +349,6 @@ server <- function(input, output) {
             justOneYear <- justOneYearReactive1()
             
         }
-        #justOneYear <- justOneYearReactive1()
         ggplot(justOneYear, aes(x=newDate, y=justOneYear[,input$Vizualize]))+
             labs(x=paste("Day in", input$Year1), y = "# of rides") + geom_bar(stat="identity", fill = color) +
             scale_x_date(date_breaks = "1 month", date_labels =  "%m/%d", expand = c(0, 0))

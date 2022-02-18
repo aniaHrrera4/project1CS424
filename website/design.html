@@ -22,32 +22,121 @@
     <div>
     <h1>Project 1 - Subway</h1>
     <h2> <a href="http://aniahrrera4.shinyapps.io/project1">SHINY APPLICATION</a></h2>
+    <h2> <a href="https://github.com/aniaHrrera4/project1CS424">GITHUB</a></h2>
     </div>
 
 
     <div class = "gridContainer">
         <div class = "grid-item">
+            <h2>Introduction</h2><br>
+
             <img class ="full-width-img2" src="shinyDashboard1.png" alt="project image">
             <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.            
+                The Chicago public transportation system is grand and the subway system carries thousands of commuters per year. 
+                This application allows users to take a deeper look into CTA DATA that pertains to 3 major stations on the L with
+                a focus on daily totals of ridership, by entry. <br>
+
+                The User is allowed to use the side bar and change the menu items for each Column with the station and year that corresponds to it. 
+
+                DashBoard Lay out is as follows: <br>
+                Dashboard initially shows 3 Columns and 3 rows each Column represent a station with the menu items for each on the sidebar. each column has options to change the station and change the year for that specific station.<br><br>
+                Column 1 is connected to station 1 and year 1 choices. <br>
+                Column 2 is connected to station 2 and year 2 choices. <br>
+                Column 3 is connected to station 3 and year 3 choicesn.<br><br>
+                The First row shows a bar chart showing total entries at all the stations for each year (2001, 2002, ... 2021). <br>
+                The Second row shows a bar chart showing total entries for each month of each year1 at all the stations. <br>
+                The Third row shows a bar chart showing entries for each day of each year at all the stations.<br><br>
             </p>
         </div>
         <div class = "grid-item">
-            <img class ="full-width-img2" src="projectimage.jpg" alt="project image">
+            <h2>Data       </h2><br><br>
+            <img class ="full-width-img2" src="previewData.png" alt="project image">
+            <img class ="full-width-img2" src="columnData.png" alt="project image">
             <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                <br>
+                SOURCE: <a href="https://data.cityofchicago.org/Transportation/CTA-Ridership-L-Station-Entries-Daily-Totals/5neh-572f"> City Of Chicago Data Portal </a><br><br>
+                According to the data set's ReadMe file :<Br>
+                "Ridership Readme<Br> 
+                12-Aug-2011<Br>
+                Chicago Transit Authority<Br><Br>
+                
+                * About CTA ridership numbers *<Br>
+                Ridership statistics are provided on a system-wide and bus route/station-level basis. 
+                Ridership is primarily counted as boardings, that is, customers boarding a transit vehicle 
+                (bus or rail).  On the rail system, there is a distinction between station entries and total 
+                rides, or boardings. Datasets indicate such in their file name and description.<Br>
+                
+                * How people are counted on the 'L' *<Br>
+                On the rail system, a customer is counted as an "entry" each time he or she passes through a 
+                turnstile to enter a station.  Customers are not counted as "entries" when they make a 
+                "cross-platform" transfer from one rail line to another, since they don't pass through a 
+                turnstile. Where the number given for rail is in "boardings," what's presented is a statistically 
+                valid estimate of the actual number of boardings onto the rail system. <Br>
+                    <Br>
+                * How people are counted on buses *<Br>
+                Boardings are recorded using the bus farebox and farecard reader. In the uncommon situation when 
+                there is an operating error with the farebox and the onboard systems cannot determine on which route a 
+                given trip's boardings should be allocated, these boardings are tallied as Route 0 in some reports.  
+                Route 1001 are shuttle buses used for construction or other unforeseen events.<Br>
+                    <Br>
+                * "Daytype" *<Br>
+                Daytype fields in the data are coded as "W" for Weekday, "A" for Saturday and "U" 
+                for Sunday/Holidays.  Note that New Year's Day, Memorial Day, Independence Day, Labor Day, 
+                Thanksgiving, and Christmas Day are considered as "Sundays" for the purposes of ridership reporting.  
+                All other holidays are reported as the type of day they fall on."<Br><Br>
+                
+                So lets break this down, as shown above we have the specific Columns and their data types. Whats 
+                most in portant to us and our application is the station names, rides, and date. In the Next Section you 
+                will see how this data was processed to be usable for our appliction. 
+
             </p>
         </div>
         <div class = "grid-item">
-            <img class ="full-width-img2" src="projectimage.jpg" alt="project image">
+            <h2>Data Handling</h2><br>
+            <img class ="full-width-img2" src="uicData.png" alt="project image">
+            <img class ="full-width-img2" src="codeR.png" alt="project image">
+            <img class ="full-width-img1" src="data_aggrUIC.png" alt="project image">
+
             <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                Data was Downloaded as a CSV file, <br>
+                then using the power of Python and Pandas the data was split into 3 specfic files based on station 
+                and read into R studio as data frames. <br><br>
+                1. UIC-Halsted - uicData<br>
+                2. O'Hare Airport - ohareData<br>
+                3. Cermak-Chinatown - chinatownData<br><br>
+                
+                While the data was processed the original data was all turned to characters. So more fine tuning was done in R Studio
+                a newDate, Month_,Year_,Rides2,year_month, and yearss, Columns were added. Rides2 the numeric version of rides and wis the column 
+                that will be used to vizualize all the data. <Br><br>
+                
+                New data frames were created that aggregated the number of rides by month and year. (data_aggrUIC, data_aggrOhare, data_aggrChina)
+                In the code above you can see how the data was handled and the resulting data frames.<Br><Br> 
+
+                After all the data handeling we are left with 3 main data frames from which the infomation was used to plot our bar charts. 
+
             </p>
         </div>
         <div class = "grid-item">
-            <img class ="full-width-img2" src="projectimage.jpg" alt="project image">
+            <h2>Interesting Findings</h2><br>
+            <img class ="full-width-img2" src="uicPan.png" alt="project image">
+            <img class ="full-width-img2" src="oharePan.png" alt="project image">
+            <img class ="full-width-img2" src="chinaPan.png" alt="project image">
             <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                Now that the application is live, we can use it to understand the data. 
+
+                The first thing I wanted to look at were the effects of the pandemic on each station. 
+                Image 1 shows the UIC-Halsted station for 2019, 2020, and 2021
+                2019 data shows the regular trends of rides spiking during the school months and dropping to a constistent
+                rate during the summer monthso f May, June, July and the Holidays in December. 
+                In 2020 when the pandemic Hit you can clearly see that in march 2020 the rides perday dramatically dropped
+                from 7000+ to less than 1000 from one day to the next. Then in the monthly chart you can see
+                how the numbers stayed low during the toughest part of the pandemic when a vaccine was not yet produced
+                from March 2020 - May 2021. In august 2021 classes were hybrid most still online however you can see how more and more 
+                riders were utilizing the UIC-Halsted station. 
+
+                These same trends can be seen in the O'Hare and Chinatown stations. 
+
+
             </p>
         </div>
     </div>
