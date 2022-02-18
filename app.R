@@ -390,7 +390,7 @@ server <- function(input, output) {
         }
         #allYears <- YearsReactive1()
         ggplot(allYears, aes(x=yearss, y=allYears[,input$Vizualize]))+
-            labs(x=paste("Per Year in 2000's Station 1:",input$Station1 ), y = "# of rides") + geom_bar(stat="identity",fill = color)+
+            labs(x=paste("Per Year in 2000's For:",input$Station1 ), y = "# of rides") + geom_bar(stat="identity",fill = color)+
             scale_x_date(date_breaks = "1 year", date_labels =  "%y", expand = c(0, 0))
        # }
     })
@@ -453,7 +453,7 @@ server <- function(input, output) {
         }
        # allYears <- YearsReactive2()
         ggplot(allYears, aes(x=yearss, y=allYears[,input$Vizualize]))+
-            labs(x=paste("Per Year in 2000's Station 2:",input$Station2 ), y = "# of rides") + geom_bar(stat="identity",fill = color)+
+            labs(x=paste("Per Year in 2000's For:",input$Station2 ), y = "# of rides") + geom_bar(stat="identity",fill = color)+
             scale_x_date(date_breaks = "1 year", date_labels =  "%y", expand = c(0, 0))
         # }
     })
@@ -518,7 +518,7 @@ server <- function(input, output) {
         }
        # allYears <- YearsReactive3()
         ggplot(allYears, aes(x=yearss, y=allYears[,input$Vizualize]))+
-            labs(x=paste("Per Year in 2000's Station 3:",input$Station3 ), y = "# of rides") + geom_bar(stat="identity",fill = color)+
+            labs(x=paste("Per Year in 2000's For:",input$Station3 ), y = "# of rides") + geom_bar(stat="identity",fill = color)+
             scale_x_date(date_breaks = "1 year", date_labels =  "%y", expand = c(0, 0))
         # }
     })
