@@ -244,84 +244,91 @@ server <- function(input, output) {
     # calculate the values one time and re-use them in multiple charts to speed things up
 
     justOneYearReactive1 <- reactive(
-        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"  ){
+        if ( input$Station1 == "UIC-Halsted"){
             {subset(uicData, year(uicData$newDate) == input$Year1)}
-        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+        }else if(input$Station1=="Cermak-Chinatown"){
             {subset(chinatownData, year(chinatownData$newDate) == input$Year1)}
-        }else{
+        }else if(input$Station1=="O'Hare Airport"){
             {subset(ohareData, year(ohareData$newDate) == input$Year1)}
         }
     )
     
     justOneMonthperYearReactive1 <- reactive(
-        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"){
+        if( input$Station1 == "UIC-Halsted"){
             {subset(data_aggrUIC, year(data_aggrUIC$year_month) == input$Year1)}
-        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+        }else if(input$Station1=="Cermak-Chinatown"){
             {subset(data_aggrChina, year(data_aggrChina$year_month) == input$Year1)}
-        }else{
+        }else if(input$Station1=="O'Hare Airport"){
             {subset(data_aggrOhare, year(data_aggrOhare$year_month) == input$Year1)}
         }
     )
     
     justOneYearReactive2 <- reactive(
-        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"  ){
+        if ( input$Station2 == "UIC-Halsted"){
             {subset(uicData, year(uicData$newDate) == input$Year2)}
-        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+        }else if(input$Station2=="Cermak-Chinatown"){
             {subset(chinatownData, year(chinatownData$newDate) == input$Year2)}
-        }else{
+        }else if(input$Station2=="O'Hare Airport"){
             {subset(ohareData, year(ohareData$newDate) == input$Year2)}
         }
     )
     
     justOneMonthperYearReactive2 <- reactive(
-        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"){
+        if( input$Station2 == "UIC-Halsted"){
             {subset(data_aggrUIC, year(data_aggrUIC$year_month) == input$Year2)}
-        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+        }else if(input$Station2=="Cermak-Chinatown"){
             {subset(data_aggrChina, year(data_aggrChina$year_month) == input$Year2)}
-        }else{
+        }else if(input$Station2=="O'Hare Airport"){
             {subset(data_aggrOhare, year(data_aggrOhare$year_month) == input$Year2)}
         }
     )
     
     
     justOneYearReactive3 <- reactive(
-        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"  ){
+        
+        if ( input$Station3 == "UIC-Halsted"){
             {subset(uicData, year(uicData$newDate) == input$Year3)}
-        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+        }else if(input$Station3=="Cermak-Chinatown"){
             {subset(chinatownData, year(chinatownData$newDate) == input$Year3)}
-        }else{
+        }else if(input$Station3=="O'Hare Airport"){
             {subset(ohareData, year(ohareData$newDate) == input$Year3)}
         }
     )
     
     justOneMonthperYearReactive3 <- reactive(
-        if ( input$Station1 == "UIC-Halsted" |input$Station2 == "UIC-Halsted" |input$Station3 == "UIC-Halsted"){
+        if( input$Station3 == "UIC-Halsted"){
             {subset(data_aggrUIC, year(data_aggrUIC$year_month) == input$Year3)}
-        }else if(input$Station1=="Cermak-Chinatown" | input$Station2=="Cermak-Chinatown"|input$Station2=="Cermak-Chinatown"){
+        }else if(input$Station3=="Cermak-Chinatown"){
             {subset(data_aggrChina, year(data_aggrChina$year_month) == input$Year3)}
-        }else{
+        }else if(input$Station3=="O'Hare Airport"){
             {subset(data_aggrOhare, year(data_aggrOhare$year_month) == input$Year3)}
         }
     )
     
-    YearsReactive <- reactive(
+    YearsReactive1 <- reactive(
         if ( input$Station1 == "UIC-Halsted"){
             {subset(year_aggrUIC, year(year_aggrUIC$yearss)  == years)}
         }else if(input$Station1=="Cermak-Chinatown"){
             {subset(year_aggrChinatownData, year(year_aggrChinatownData$yearss)== years)}
         }else if(input$Station1=="O'Hare Airport"){
             {subset(year_aggrOhare, year(year_aggrOhare$yearss) == years)}
-        }else if ( input$Station2 == "UIC-Halsted"){
+        }
+    )  
+    YearsReactive2 <- reactive(
+        if(input$Station2== "UIC-Halsted"){
             {subset(year_aggrUIC, year(year_aggrUIC$yearss)  == years)}
         }else if(input$Station2=="Cermak-Chinatown"){
             {subset(year_aggrChinatownData, year(year_aggrChinatownData$yearss)== years)}
         }else if(input$Station2=="O'Hare Airport"){
             {subset(year_aggrOhare, year(year_aggrOhare$yearss) == years)}
-        }else if ( input$Station3 == "UIC-Halsted"){
+        }
+    )
+    YearsReactive3 <- reactive(
+        if(input$Station3== "UIC-Halsted"){
             {subset(year_aggrUIC, year(year_aggrUIC$yearss)  == years)}
         }else if(input$Station3=="Cermak-Chinatown"){
             {subset(year_aggrChinatownData, year(year_aggrChinatownData$yearss)== years)}
-        }else{
+        }else if(input$Station3=="O'Hare Airport"){
             {subset(year_aggrOhare, year(year_aggrOhare$yearss) == years)}
         }
     )
@@ -329,12 +336,18 @@ server <- function(input, output) {
     output$Hist1 <- renderPlot({
         if ( input$Station1 == "UIC-Halsted"){
             color<- "darkblue"
+            justOneYear <- justOneYearReactive1()
+            
         }else if(input$Station1=="Cermak-Chinatown"){
             color<- "#782208"
+            justOneYear <- justOneYearReactive1()
+            
         }else{
             color<- "#1c4a36"
+            justOneYear <- justOneYearReactive1()
+            
         }
-        justOneYear <- justOneYearReactive1()
+        #justOneYear <- justOneYearReactive1()
         ggplot(justOneYear, aes(x=newDate, y=justOneYear[,input$Vizualize]))+
             labs(x=paste("Day in", input$Year1), y = "# of rides") + geom_bar(stat="identity", fill = color) +
             scale_x_date(date_breaks = "1 month", date_labels =  "%m/%d", expand = c(0, 0))
@@ -343,13 +356,19 @@ server <- function(input, output) {
     output$Hist2 <- renderPlot({
         if ( input$Station1 == "UIC-Halsted"){
             color<- "darkblue"
+            monthly<-justOneMonthperYearReactive1()
+            
         }else if(input$Station1=="Cermak-Chinatown"){
             color<- "#782208"
+            monthly<-justOneMonthperYearReactive1()
+            
         }else{
             color<- "#1c4a36"
+            monthly<-justOneMonthperYearReactive1()
+            
         }
 
-        monthly<-justOneMonthperYearReactive1()
+        #monthly<-justOneMonthperYearReactive1()
         ggplot(monthly, aes(x=year_month, y=monthly[,input$Vizualize]))+
             labs(x=paste("Month in", input$Year1), y = "# of rides") + geom_bar(stat="identity",fill = color) +
             scale_x_date(date_breaks = "1 month",date_labels = "%B", expand = c(0, 0))
@@ -358,12 +377,18 @@ server <- function(input, output) {
     output$Hist3 <- renderPlot({
         if ( input$Station1 == "UIC-Halsted"){
             color<- "darkblue"
+            allYears <- YearsReactive1()
+            
         }else if(input$Station1=="Cermak-Chinatown"){
             color<- "#782208"
+            allYears <- YearsReactive1()
+            
         }else{
             color<- "#1c4a36"
+            allYears <- YearsReactive1()
+            
         }
-        allYears <- YearsReactive()
+        #allYears <- YearsReactive1()
         ggplot(allYears, aes(x=yearss, y=allYears[,input$Vizualize]))+
             labs(x="Per Year in 2000's", y = "# of rides") + geom_bar(stat="identity",fill = color)+
             scale_x_date(date_breaks = "1 year", date_labels =  "%y", expand = c(0, 0))
@@ -374,12 +399,18 @@ server <- function(input, output) {
     output$Hist6 <- renderPlot({
         if ( input$Station2 == "UIC-Halsted"){
             color<- "darkblue"
+            justOneYear <- justOneYearReactive2()
+            
         }else if(input$Station2=="Cermak-Chinatown"){
             color<- "#782208"
+            justOneYear <- justOneYearReactive2()
+            
         }else{
             color<- "#1c4a36"
+            justOneYear <- justOneYearReactive2()
+            
         }
-        justOneYear <- justOneYearReactive2()
+       # justOneYear <- justOneYearReactive2()
         ggplot(justOneYear, aes(x=newDate, y=justOneYear[,input$Vizualize]))+
             labs(x=paste("Day in", input$Year2), y = "# of rides") + geom_bar(stat="identity", fill = color) +
             scale_x_date(date_breaks = "1 month", date_labels =  "%m/%d", expand = c(0, 0))
@@ -388,13 +419,19 @@ server <- function(input, output) {
     output$Hist5 <- renderPlot({
         if ( input$Station2 == "UIC-Halsted"){
             color<- "darkblue"
+            monthly<-justOneMonthperYearReactive2()
+            
         }else if(input$Station2=="Cermak-Chinatown"){
             color<- "#782208"
+            monthly<-justOneMonthperYearReactive2()
+            
         }else{
             color<- "#1c4a36"
+            monthly<-justOneMonthperYearReactive2()
+            
         }
         
-        monthly<-justOneMonthperYearReactive2()
+      #  monthly<-justOneMonthperYearReactive2()
         ggplot(monthly, aes(x=year_month, y=monthly[,input$Vizualize]))+
             labs(x=paste("Month in", input$Year2), y = "# of rides") + geom_bar(stat="identity",fill = color) +
             scale_x_date(date_breaks = "1 month",date_labels = "%B", expand = c(0, 0))
@@ -403,12 +440,18 @@ server <- function(input, output) {
     output$Hist4 <- renderPlot({
         if ( input$Station2 == "UIC-Halsted"){
             color<- "darkblue"
+            allYears <- YearsReactive2()
+            
         }else if(input$Station2=="Cermak-Chinatown"){
             color<- "#782208"
+            allYears <- YearsReactive2()
+            
         }else{
             color<- "#1c4a36"
+            allYears <- YearsReactive2()
+            
         }
-        allYears <- YearsReactive()
+       # allYears <- YearsReactive2()
         ggplot(allYears, aes(x=yearss, y=allYears[,input$Vizualize]))+
             labs(x="Per Year in 2000's", y = "# of rides") + geom_bar(stat="identity",fill = color)+
             scale_x_date(date_breaks = "1 year", date_labels =  "%y", expand = c(0, 0))
@@ -421,12 +464,18 @@ server <- function(input, output) {
     output$Hist9 <- renderPlot({
         if ( input$Station3 == "UIC-Halsted"){
             color<- "darkblue"
+            justOneYear <- justOneYearReactive3()
+            
         }else if(input$Station3=="Cermak-Chinatown"){
             color<- "#782208"
+            justOneYear <- justOneYearReactive3()
+            
         }else{
             color<- "#1c4a36"
+            justOneYear <- justOneYearReactive3()
+            
         }
-        justOneYear <- justOneYearReactive3()
+     #   justOneYear <- justOneYearReactive3()
         ggplot(justOneYear, aes(x=newDate, y=justOneYear[,input$Vizualize]))+
             labs(x=paste("Day in", input$Year3), y = "# of rides") + geom_bar(stat="identity", fill = color) +
             scale_x_date(date_breaks = "1 month", date_labels =  "%m/%d", expand = c(0, 0))
@@ -435,13 +484,19 @@ server <- function(input, output) {
     output$Hist8 <- renderPlot({
         if ( input$Station3 == "UIC-Halsted"){
             color<- "darkblue"
+            monthly<-justOneMonthperYearReactive3()
+            
         }else if(input$Station3=="Cermak-Chinatown"){
             color<- "#782208"
+            monthly<-justOneMonthperYearReactive3()
+            
         }else{
             color<- "#1c4a36"
+            monthly<-justOneMonthperYearReactive3()
+            
         }
         
-        monthly<-justOneMonthperYearReactive3()
+       # monthly<-justOneMonthperYearReactive3()
         ggplot(monthly, aes(x=year_month, y=monthly[,input$Vizualize]))+
             labs(x=paste("Month in", input$Year3), y = "# of rides") + geom_bar(stat="identity",fill = color) +
             scale_x_date(date_breaks = "1 month",date_labels = "%B", expand = c(0, 0))
@@ -450,12 +505,18 @@ server <- function(input, output) {
     output$Hist7 <- renderPlot({
         if ( input$Station3 == "UIC-Halsted"){
             color<- "darkblue"
+            allYears <- YearsReactive3()
+            
         }else if(input$Station3=="Cermak-Chinatown"){
             color<- "#782208"
+            allYears <- YearsReactive3()
+            
         }else{
             color<- "#1c4a36"
+            allYears <- YearsReactive3()
+            
         }
-        allYears <- YearsReactive()
+       # allYears <- YearsReactive3()
         ggplot(allYears, aes(x=yearss, y=allYears[,input$Vizualize]))+
             labs(x="Per Year in 2000's", y = "# of rides") + geom_bar(stat="identity",fill = color)+
             scale_x_date(date_breaks = "1 year", date_labels =  "%y", expand = c(0, 0))
