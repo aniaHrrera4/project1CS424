@@ -14,7 +14,10 @@ CTA_-_Ridership_-__L__Station_Entries_-_Daily_Totals_O'Hare_Airport.csv
 CTA_-_Ridership_-__L__Station_Entries_-_Daily_Totals_UIC-Halsted.csv
 
 open app.R in R studio 
+set your working directory to the folder where you downloaded the project. 
+then Run the app 
 
-Run the file.
+shiny should pop open then you click on the dashboard. 
+
 
 http://aniahrrera4.shinyapps.io/project1 
