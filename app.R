@@ -94,7 +94,7 @@ sidebar <- dashboardSidebar(disable = FALSE, collapsed = FALSE,
                      
                      sidebarMenu(
                          menuItem("", tabName = "cheapBlankSpace", icon = NULL),
-                         menuItem("", tabName = "cheapBlankSpace", icon = NULL),
+                         menuItem("", tabName = "cheapBlankSpace", icon = NULL), 
                          menuItem("Dashboard", tabName = "Dashboard", icon = icon("dashboard")),
                          menuItem("About", icon = icon("th"), tabName = "About")),
                      selectInput("Vizualize", "Select the column to visualize", listNames, selected = "Rides2",  selectize = FALSE),
